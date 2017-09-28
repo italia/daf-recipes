@@ -2,10 +2,6 @@
 
 - Follow these steps to run the Docker images:
     
-    # Clone git repo
-        git clone https://github.com/lorenzoeusepi77/freeipaldap.git
-        cd freeipaldap
-    
     # Create Freeipa config directory
         mkdir /var/lib/ipa-data
     
