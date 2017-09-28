@@ -1,0 +1,55 @@
+# Docker image: Jupyterhub + ldap integration + postgres + sparkmagic
+
+To run docker:
+	git clone
+
+        cd jupyterhub
+
+	./build.sh 			# Built jupyterhub docker image
+
+        docker-compose up -d            # Start jupyterhub docker container  
+
+        ./init.sh                       # Init container config
+
+
+Configuration detail:
+
+On docker  you can find jupyterhub config file
+
+   jupyterhub/jupyterhubconfig/jupyterhub_config.py
+
+If you need to add admin user you must edit "jupyterhub_config.py" and add admin in this section:
+
+	c.authenticator.admin_users = {'admin','raffaele','lorenzo'}
+
+LDAP parameters:
+
+	#ldap Server config
+	c.LDAPAuthenticator.server_address = 'server ip'
+	c.LDAPAuthenticator.use_ssl = True
+	c.LDAPAuthenticator.server_port = 636
+	c.LDAPAuthenticator.bind_dn_template = 'uid={username},cn=users,cn=accounts,dc=test,dc=example,dc=com'
+
+-------------------
+
+If you need to change default sparkmagic config.json you need to edit file "jupyterhub/sparkmagicconfig/.sparkmagic/config.jason". 	
+
+
+
+If you need to grand user privileges to jupyterhub "standard users" you must edit file "jupyterhub/ubuntuconfig/adduser.conf" and change this parameter:
+
+
+Comment rbash and uncomment standard bash
+
+        # The DSHELL variable specifies the default login shell on your
+        # system.
+        #DSHELL=/bin/bash
+        DSHELL=/bin/rbash
+
+Change user Dir privileges
+
+        # If DIR_MODE is set, directories will be created with the specified
+        # mode. Otherwise the default mode 0755 will be used.
+        DIR_MODE=0700
+
+

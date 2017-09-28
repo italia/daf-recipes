@@ -1,0 +1,3 @@
+--realm=ipa.example.test
+--ds-password=dspassword
+--admin-password=adminpassword

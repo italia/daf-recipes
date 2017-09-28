@@ -1,0 +1,33 @@
+superset:
+  container_name: supersetd
+  image: supersetd
+  restart: always
+  extra_hosts:
+    idm.daf.gov.it: 192.168.0.29
+  links:
+      - postgressuperset
+      - redissuperset
+  environment:
+      MAPBOX_API_KEY: "pk.eyJ1IjoidGVhbWRpZ2l0YWxlIiwiYSI6ImNqN3JsamdudjNqZG8yd3Q1Z3pxeG51YWUifQ.5fDbuvoLcC1f6n9g9nTgXA"
+  ports:
+      - "8088:8088"
+  volumes:
+      - ./supersetconfig:/etc/superset
+postgressuperset:
+  container_name: postgressuperset 
+  image: postgres:9.6
+  restart: always
+  ports:
+      - "5432:5432"
+  environment:
+      POSTGRES_DB: superset
+      POSTGRES_PASSWORD: superset
+      POSTGRES_USER: superset
+  volumes:
+      - postgres:/var/lib/postgresql/data
+redissuperset:
+  container_name: redissupersets
+  image: redis:latest
+  restart: always
+  volumes:
+      - redis:/data
