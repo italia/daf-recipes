@@ -63,6 +63,8 @@ AUTH_USER_REGISTRATION = True
 # The default user self registration role
 # AUTH_USER_REGISTRATION_ROLE = "Public"
 AUTH_USER_REGISTRATION_ROLE = "Admin"
+# Uncomment this below for the default role assignment of the OpenData part
+#AUTH_USER_REGISTRATION_ROLE = "AlphaOpen"
 
 #AUTH CONFIG LDAP AND DB AUTH cannot be used both at the same time
 # When using Local DB AUTH uncomment following parameter and comment "AUTH_LDAP"
