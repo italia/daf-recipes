@@ -2,14 +2,15 @@ version: '3'
 
 services:
   jupyterhub:
+    build: ./jupyterhub
     container_name: jupyterhub
-    image: jupyterhub
     restart: always
     extra_hosts:
       idm.daf.gov.it: 192.168.0.29
       livy.default.svc.cluster.local: 192.168.0.27
     links:
         - postgresjupyterhub
+        - fake_ldap
     environment:
         POSTGRES_HOST: "postgresjupyterhub"
         POSTGRES_DB: "jupyterhub"
@@ -37,6 +38,15 @@ services:
     networks:
         - back
 
+  fake_ldap:
+    image: nickstenning/slapd
+    environment:
+      - "LDAP_DOMAIN=mycorp.com"
+      - "LDAP_ROOTPASS=1234abc"
+    volumes:
+      - ./ldap_db:/var/lib/ldap
+    networks:
+        - back
 
 networks:
     back:

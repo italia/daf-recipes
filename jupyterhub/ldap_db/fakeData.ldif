@@ -1,0 +1,59 @@
+#
+# Dummy user database for testing
+#
+# User 'teamdigitale' is admin, user 'pippo' is a regular user.
+# Both has the password 'password'
+#
+
+#dn: dc=mycorp,dc=com
+#objectClass: top
+#objectClass: dcObject
+#objectClass: organization
+#o: Jenkins users
+#dc: mycorp
+#description: Jenkins users
+
+#dn: cn=admin,dc=mycorp,dc=com
+#objectClass: simpleSecurityObject
+#objectClass: organizationalRole
+#cn: admin
+#description: LDAP administrator
+#userPassword: {SSHA}yI6cZwQadOA1e+/f+T+H3eCQQhRzYWx0
+
+dn: ou=people,dc=mycorp,dc=com
+objectClass: organizationalUnit
+ou: people
+
+dn: ou=groups,dc=mycorp,dc=com
+objectClass: organizationalUnit
+ou: groups
+
+dn: cn=admins,ou=groups,dc=mycorp,dc=com
+objectClass: groupOfNames
+cn: admins
+description: people with infrastructure admin access
+member: cn=kohsuke,ou=people,dc=mycorp,dc=com
+
+dn: cn=all,ou=groups,dc=mycorp,dc=com
+objectClass: groupOfNames
+cn: all
+member: cn=kohsuke,ou=people,dc=mycorp,dc=com
+member: cn=kohsuke2,ou=people,dc=mycorp,dc=com
+
+dn: cn=kohsuke,ou=people,dc=mycorp,dc=com
+objectClass: inetOrgPerson
+cn: kohsuke
+mail: kk@kohsuke.org
+givenName: Kohsuke
+employeeNumber: kohsuke
+preferredLanguage: yyy
+sn: Kawaguchi
+userPassword: {SSHA}yI6cZwQadOA1e+/f+T+H3eCQQhRzYWx0
+
+dn: cn=alice,ou=people,dc=mycorp,dc=com
+objectClass: inetOrgPerson
+cn: alice
+mail: bob@mycorp.org
+givenName: Alice
+sn: Ashley
+userPassword: {SSHA}yI6cZwQadOA1e+/f+T+H3eCQQhRzYWx0
