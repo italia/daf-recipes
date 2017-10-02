@@ -1,6 +1,6 @@
 ckan:
   container_name: ckan
-  image: daf-ckan:1.0.0
+  build: ./ckan
   links:
       - db
       - solr
@@ -16,11 +16,11 @@ ckan:
 db:
   container_name: db
   image: ckan/postgresql:latest
-  
+
 solr:
   container_name: solr
-  image: daf-ckan-solr:1.0.0
-    
+  build: ./solr
+
 redis:
   container_name: redis
   image: redis:latest
