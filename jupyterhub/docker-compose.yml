@@ -13,33 +13,26 @@ services:
         POSTGRES_USER: jupyterhub
     #volumes:
     #    - postgres:/var/lib/postgresql/data
-    networks:
-        - back
+    # networks:
+    #     - back
 
-  #ldap:
-  # image: osixia/openldap
-  # volumes:
-  #   - ../example_ldap_docker/data/slapd/database:/var/lib/ldap
-  #   - ../example_ldap_docker/data/slapd/config:/etc/ldap/slapd.d
-  # ports:
-  #   - "389:389"
-#     - "636:636"
-#   networks:
-#       - back
+  ldap:
+    image: osixia/openldap
+    ports:
+      - "389:389"
+      - "636:636"
 
-  #phpldapadmin:
-  # image: osixia/phpldapadmin
-  # ports:
-  #   - "80:80"
-  # environment:
-#     - PHPLDAPADMIN_HTTPS="false"
-  #   - PHPLDAPADMIN_LDAP_HOSTS=ldap
-  # links:
-#     - ldap
-#   depends_on:
-#     - ldap
-#   networks:
-#        - back
+  phpldapadmin:
+    image: osixia/phpldapadmin
+    ports:
+      - "80:80"
+    environment:
+      - PHPLDAPADMIN_HTTPS="false"
+      - PHPLDAPADMIN_LDAP_HOSTS=ldap
+    links:
+      - ldap
+    depends_on:
+      - ldap
 
   jupyterhub:
     build: ./jupyterhub
@@ -49,8 +42,8 @@ services:
       idm.daf.gov.it: 192.168.0.29
       livy.default.svc.cluster.local: 192.168.0.27
     links:
-        - postgresjupyterhub
-      #  - ldap
+      - postgresjupyterhub
+      - ldap
     environment:
         POSTGRES_HOST: postgresjupyterhub
         POSTGRES_DB: "jupyterhub"
@@ -58,15 +51,15 @@ services:
         POSTGRES_PASSWORD: "jupyterhub"
     ports:
         - "8000:8000"
-    command: ["/wait_db_is_ready.sh", "postgresjupyterhub:5432", "--", "jupiterhub"]
+    # command: ["/wait_db_is_ready.sh", "postgresjupyterhub:5432", "--", "jupiterhub"]
     depends_on:
       #- ldap
       - postgresjupyterhub
-    #volumes:
-    #    - ./jupyterhubconfig:/srv/jupyterhub
-    networks:
-        - back
-networks:
-    back:
-        # use the bridge driver, but enable IPv6
-        driver: bridge
+    volumes:
+       - ./jupyterhubconfig:/srv/jupyterhub
+    # networks:
+    #     - back
+# networks:
+#     back:
+#         # use the bridge driver, but enable IPv6
+#         driver: bridge
