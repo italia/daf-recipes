@@ -1,28 +1,6 @@
 version: '3'
 
 services:
-  jupyterhub:
-    build: ./jupyterhub
-    container_name: jupyterhub
-    restart: always
-    extra_hosts:
-      idm.daf.gov.it: 192.168.0.29
-      livy.default.svc.cluster.local: 192.168.0.27
-    links:
-        - postgresjupyterhub
-        - fake_ldap
-    environment:
-        POSTGRES_HOST: "postgresjupyterhub"
-        POSTGRES_DB: "jupyterhub"
-        POSTGRES_USER: "jupyterhub"
-        POSTGRES_PASSWORD: "jupyterhub"
-    ports:
-        - "8000:8000"
-    volumes:
-        - ./jupyterhubconfig:/srv/jupyterhub
-    networks:
-        - back
-
   postgresjupyterhub:
     container_name: postgresjupyterhub
     image: postgres:9.6
@@ -38,16 +16,55 @@ services:
     networks:
         - back
 
-  fake_ldap:
-    image: nickstenning/slapd
+  #ldap:
+  # image: osixia/openldap
+  # volumes:
+  #   - ../example_ldap_docker/data/slapd/database:/var/lib/ldap
+  #   - ../example_ldap_docker/data/slapd/config:/etc/ldap/slapd.d
+  # ports:
+  #   - "389:389"
+#     - "636:636"
+#   networks:
+#       - back
+
+  #phpldapadmin:
+  # image: osixia/phpldapadmin
+  # ports:
+  #   - "80:80"
+  # environment:
+#     - PHPLDAPADMIN_HTTPS="false"
+  #   - PHPLDAPADMIN_LDAP_HOSTS=ldap
+  # links:
+#     - ldap
+#   depends_on:
+#     - ldap
+#   networks:
+#        - back
+
+  jupyterhub:
+    build: ./jupyterhub
+    container_name: jupyterhub
+    restart: always
+    extra_hosts:
+      idm.daf.gov.it: 192.168.0.29
+      livy.default.svc.cluster.local: 192.168.0.27
+    links:
+        - postgresjupyterhub
+      #  - ldap
     environment:
-      - "LDAP_DOMAIN=mycorp.com"
-      - "LDAP_ROOTPASS=1234abc"
+        POSTGRES_HOST: "postgresjupyterhub"
+        POSTGRES_DB: "jupyterhub"
+        POSTGRES_USER: "jupyterhub"
+        POSTGRES_PASSWORD: "jupyterhub"
+    ports:
+        - "8000:8000"
     volumes:
-      - ./ldap_db:/var/lib/ldap
+        - ./jupyterhubconfig:/srv/jupyterhub
+    depends_on:
+      #- ldap
+      - postgresjupyterhub
     networks:
         - back
-
 networks:
     back:
         # use the bridge driver, but enable IPv6
