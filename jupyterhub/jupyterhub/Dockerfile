@@ -1,15 +1,14 @@
 FROM jupyterhub/jupyterhub
 
-
 #POSTGRES DB PACKAGE
 RUN apt-get update && \
     apt-get install -y \
         libpq-dev \
-        npm \ 
+        npm \
  && apt-get autoremove -y \
  && apt-get clean -y \
- && pip install psycopg2 
-
+ && pip install psycopg2 \
+ && apt-get install postgresql-client -y
 
 # ADD LDAP AUTH PACKAGE
 RUN pip install jupyterhub-ldapauthenticator
@@ -24,7 +23,9 @@ COPY /ubuntuconfig /etc
 
 # Init script spark magic
 ADD ./sparkmagic-init.sh /
+ADD ./wait_db_is_ready.sh /
 RUN chmod +x /sparkmagic-init.sh
+RUN chmod +x /wait_db_is_ready.sh
 
 # ADD LOCAL ADMIN USER
 RUN useradd -m -G shadow -p $(openssl passwd -1 admin) admin
@@ -37,6 +38,6 @@ COPY /sparkmagicconfig /etc/skel
 RUN pip install notebook
 
 #EXPOSE 8000
-ENTRYPOINT ["jupyterhub"]
+#ENTRYPOINT ["jupyterhub"]
 
 USER root
