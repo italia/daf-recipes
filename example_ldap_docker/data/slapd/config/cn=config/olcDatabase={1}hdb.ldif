@@ -1,0 +1,33 @@
+# AUTO-GENERATED FILE - DO NOT EDIT!! Use ldapmodify.
+# CRC32 f55d3bc2
+dn: olcDatabase={1}hdb
+objectClass: olcDatabaseConfig
+objectClass: olcHdbConfig
+olcDatabase: {1}hdb
+olcDbDirectory: /var/lib/ldap
+olcSuffix: dc=example,dc=org
+olcLastMod: TRUE
+olcRootDN: cn=admin,dc=example,dc=org
+olcRootPW:: e1NTSEF9V3lzMUlkSC9JRm83clNtWFBYYVZHNzI0cTNySmd5NVM=
+olcDbCheckpoint: 512 30
+olcDbConfig: {0}set_cachesize 0 2097152 0
+olcDbConfig: {1}set_lk_max_objects 1500
+olcDbConfig: {2}set_lk_max_locks 1500
+olcDbConfig: {3}set_lk_max_lockers 1500
+structuralObjectClass: olcHdbConfig
+entryUUID: 85237a98-3c71-1037-8ac4-ddc4a236f3fd
+creatorsName: cn=admin,cn=config
+createTimestamp: 20171003102945Z
+olcAccess: {0}to attrs=userPassword,shadowLastChange by self write by dn="cn
+ =admin,dc=example,dc=org" write by anonymous auth by * none
+olcAccess: {1}to * by self write by dn="cn=admin,dc=example,dc=org" write by
+  * none
+olcDbIndex: uid eq
+olcDbIndex: mail eq
+olcDbIndex: memberOf eq
+olcDbIndex: entryCSN eq
+olcDbIndex: entryUUID eq
+olcDbIndex: objectClass eq
+entryCSN: 20171003102948.250238Z#000000#000#000000
+modifiersName: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+modifyTimestamp: 20171003102948Z

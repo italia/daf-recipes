@@ -53,7 +53,8 @@ c.JupyterHub.authenticator_class = 'ldapcreateusers.LocalLDAPCreateUsers'
 c.LocalLDAPCreateUsers.create_system_users = True
 
 #ldap Server config
-c.LDAPAuthenticator.server_address = 'server ip'
-c.LDAPAuthenticator.use_ssl = True
-c.LDAPAuthenticator.server_port = 636
-c.LDAPAuthenticator.bind_dn_template = 'uid={username},cn=users,cn=accounts,dc=test,dc=example,dc=com'
+c.LDAPAuthenticator.server_address = 'ldap'
+c.LDAPAuthenticator.use_ssl = False
+c.PAMAuthenticator.open_sessions = False
+c.LDAPAuthenticator.server_port = 389
+c.LDAPAuthenticator.bind_dn_template = 'cn={username},cn=jupyterhub,dc=example,dc=org'
