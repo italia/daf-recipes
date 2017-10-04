@@ -33,7 +33,7 @@ services:
         POSTGRES_PASSWORD: "jupyterhub"
     ports:
         - "8000:8000"
-    # command: ["/wait_db_is_ready.sh", "postgresjupyterhub:5432", "--", "jupiterhub"]
+    command: ["/wait_db_is_ready.sh"]
     depends_on:
       #- ldap
       - postgresjupyterhub
@@ -44,6 +44,6 @@ services:
 networks:
     default:
         external:
-             name: ldap_back
+             name: ldap_ldap
 #         # use the bridge driver, but enable IPv6
 #        driver: bridge
