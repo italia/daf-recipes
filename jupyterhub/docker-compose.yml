@@ -11,8 +11,8 @@ services:
         POSTGRES_DB: jupyterhub
         POSTGRES_PASSWORD: jupyterhub
         POSTGRES_USER: jupyterhub
-    #volumes:
-    #    - postgres:/var/lib/postgresql/data
+    volumes:
+        - ./postgres:/var/lib/postgresql/data
     networks:
         - back
 
@@ -58,12 +58,14 @@ services:
         POSTGRES_PASSWORD: "jupyterhub"
     ports:
         - "8000:8000"
-    command: ["/wait_db_is_ready.sh", "postgresjupyterhub:5432", "--", "jupiterhub"]
+    #command: ["/wait_db_is_ready.sh", "POSTGRES_HOST"]
+    #command: ["jupyterhub"]
+    #entrypoint: ["/wait_db_is_ready.sh", "POSTGRES_HOST"]
     depends_on:
       #- ldap
       - postgresjupyterhub
-    #volumes:
-    #    - ./jupyterhubconfig:/srv/jupyterhub
+    volumes:
+        - ./jupyterhubconfig:/srv/jupyterhub
     networks:
         - back
 networks:

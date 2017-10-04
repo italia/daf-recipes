@@ -2,11 +2,14 @@
 set -e
 
 host="$1"
-shift
-cmd="$@"
+#shift
+#cmd="$@"
 
 echo "************************************* SONO ENTRATO *************************************"
 >&2 echo "************************************* SONO ENTRATO *************************************"
+
+
+echo $host
 
 until PGPASSWORD="jupyterhub" psql -h "$host" -U "jupyterhub" -c '\l'; do
 #until PGPASSWORD="jupyterhub" psql -h "postgresjupyterhub:5432" -U "jupyterhub" -c '\l'; do
@@ -16,5 +19,5 @@ until PGPASSWORD="jupyterhub" psql -h "$host" -U "jupyterhub" -c '\l'; do
   sleep 1
 done
 
->&2 echo "Postgres is up - executing command"
-exec "jupyterhub"
+#>&2 echo "Postgres is up - executing command"
+jupyterhub

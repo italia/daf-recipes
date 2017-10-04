@@ -23,9 +23,7 @@ COPY /ubuntuconfig /etc
 
 # Init script spark magic
 ADD ./sparkmagic-init.sh /
-ADD ./wait_db_is_ready.sh /
 RUN chmod +x /sparkmagic-init.sh
-RUN chmod +x /wait_db_is_ready.sh
 
 # ADD LOCAL ADMIN USER
 RUN useradd -m -G shadow -p $(openssl passwd -1 admin) admin
@@ -37,7 +35,10 @@ COPY /sparkmagicconfig /etc/skel
 #Install notebook
 RUN pip install notebook
 
+ADD ./wait_db_is_ready.sh /
+RUN chmod +x /wait_db_is_ready.sh
+
 #EXPOSE 8000
-#ENTRYPOINT ["jupyterhub"]
+ENTRYPOINT ["/wait_db_is_ready.sh", "postgresjupyterhub"]
 
 USER root
