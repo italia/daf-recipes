@@ -13,26 +13,8 @@ services:
         POSTGRES_USER: jupyterhub
     #volumes:
     #    - postgres:/var/lib/postgresql/data
-    # networks:
-    #     - back
-
-  ldap:
-    image: osixia/openldap
-    ports:
-      - "389:389"
-      - "636:636"
-
-  phpldapadmin:
-    image: osixia/phpldapadmin
-    ports:
-      - "80:80"
-    environment:
-      - PHPLDAPADMIN_HTTPS="false"
-      - PHPLDAPADMIN_LDAP_HOSTS=ldap
-    links:
-      - ldap
-    depends_on:
-      - ldap
+    #networks:
+    #    - back
 
   jupyterhub:
     build: ./jupyterhub
@@ -43,7 +25,7 @@ services:
       livy.default.svc.cluster.local: 192.168.0.27
     links:
       - postgresjupyterhub
-      - ldap
+      #- ldap
     environment:
         POSTGRES_HOST: postgresjupyterhub
         POSTGRES_DB: "jupyterhub"
@@ -57,9 +39,11 @@ services:
       - postgresjupyterhub
     volumes:
        - ./jupyterhubconfig:/srv/jupyterhub
-    # networks:
-    #     - back
-# networks:
-#     back:
+    #networks:
+    #    - back
+networks:
+    default:
+        external:
+             name: ldap_back
 #         # use the bridge driver, but enable IPv6
-#         driver: bridge
+#        driver: bridge

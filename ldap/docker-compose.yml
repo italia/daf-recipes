@@ -1,0 +1,34 @@
+version: '3'
+
+services:
+  ldap:
+    container_name: ldap
+    image: osixia/openldap
+    ports:
+      - "389:389"
+      - "636:636"
+    volumes: 
+      - ./users.ldif:/container/service/slapd/assets/config/bootstrap/ldif/50-bootstrap.ldif
+    networks:
+      - back
+    #entrypoint: []
+
+  phpldapadmin:
+    container_name: phpldapadmin
+    image: osixia/phpldapadmin
+    ports:
+      - "80:80"
+    environment:
+      - PHPLDAPADMIN_HTTPS="false"
+      - PHPLDAPADMIN_LDAP_HOSTS=ldap
+    links:
+      - ldap
+    depends_on:
+      - ldap
+    networks:
+      - back
+    #  
+networks:
+  back:
+#         # use the bridge driver, but enable IPv6
+    driver: bridge
