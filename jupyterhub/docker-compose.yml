@@ -11,6 +11,7 @@ services:
         POSTGRES_DB: jupyterhub
         POSTGRES_PASSWORD: jupyterhub
         POSTGRES_USER: jupyterhub
+
     volumes:
         - ./postgres:/var/lib/postgresql/data
 
@@ -22,8 +23,8 @@ services:
       idm.daf.gov.it: 192.168.0.29
       livy.default.svc.cluster.local: 192.168.0.27
     links:
-        - postgresjupyterhub
-      #  - ldap
+      - postgresjupyterhub
+      #- ldap
     environment:
         POSTGRES_HOST: postgresjupyterhub
         POSTGRES_DB: "jupyterhub"
@@ -32,6 +33,7 @@ services:
     ports:
         - "8000:8000"
     command: ["/wait_db_is_ready.sh"]
+
     depends_on:
       #- ldap
       - postgresjupyterhub
@@ -42,3 +44,4 @@ networks:
     default:
         external:
              name: ldap_ldap
+
