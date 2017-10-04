@@ -7,12 +7,14 @@ services:
     ports:
       - "389:389"
       - "636:636"
-    volumes: 
-      - ./users.ldif:/container/service/slapd/assets/config/bootstrap/ldif/50-bootstrap.ldif
+    command: [--copy-service,  --loglevel, debug]
+    volumes:
+      - ./users.ldif:/container/service/slapd/assets/config/bootstrap/ldif/data.ldif
+    environment:
+      - LDAP_ADMIN_PASSWORD=admin
+      - LDAP_BASE_DN=dc=example,dc=org
     networks:
-      - back
-    #entrypoint: []
-
+      - ldap
   phpldapadmin:
     container_name: phpldapadmin
     image: osixia/phpldapadmin
@@ -26,9 +28,9 @@ services:
     depends_on:
       - ldap
     networks:
-      - back
-    #  
+      - ldap
+    #
 networks:
-  back:
-#         # use the bridge driver, but enable IPv6
+  ldap:
+    # use the bridge driver, but enable IPv6
     driver: bridge
