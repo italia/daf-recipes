@@ -7,8 +7,7 @@ RUN apt-get update && \
         npm \
  && apt-get autoremove -y \
  && apt-get clean -y \
- && pip install psycopg2 \
- && apt-get install postgresql-client -y
+ && pip install psycopg2
 
 # ADD LDAP AUTH PACKAGE
 RUN pip install jupyterhub-ldapauthenticator
@@ -35,10 +34,11 @@ COPY /sparkmagicconfig /etc/skel
 #Install notebook
 RUN pip install notebook
 
+# Install postgresql client and await db is created
+RUN apt-get install postgresql-client -y
 ADD ./wait_db_is_ready.sh /
 RUN chmod +x /wait_db_is_ready.sh
 
 #EXPOSE 8000
-ENTRYPOINT ["/wait_db_is_ready.sh", "postgresjupyterhub"]
 
 USER root
