@@ -11,10 +11,9 @@ services:
         POSTGRES_DB: jupyterhub
         POSTGRES_PASSWORD: jupyterhub
         POSTGRES_USER: jupyterhub
-    #volumes:
-    #    - postgres:/var/lib/postgresql/data
-    #networks:
-    #    - back
+
+    volumes:
+        - ./postgres:/var/lib/postgresql/data
 
   jupyterhub:
     build: ./jupyterhub
@@ -33,17 +32,16 @@ services:
         POSTGRES_PASSWORD: "jupyterhub"
     ports:
         - "8000:8000"
-    # command: ["/wait_db_is_ready.sh", "postgresjupyterhub:5432", "--", "jupiterhub"]
+    command: ["/wait_db_is_ready.sh"]
+
     depends_on:
       #- ldap
       - postgresjupyterhub
     volumes:
-       - ./jupyterhubconfig:/srv/jupyterhub
-    #networks:
-    #    - back
+        - ./jupyterhubconfig:/srv/jupyterhub
+
 networks:
     default:
         external:
-             name: ldap_back
-#         # use the bridge driver, but enable IPv6
-#        driver: bridge
+             name: ldap_ldap
+
