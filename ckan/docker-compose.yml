@@ -25,6 +25,8 @@ services:
   solr:
     container_name: solr
     build: ./solr
+    ports:
+      - "8983:8983"
   redis:
     container_name: redis
     image: redis:latest
@@ -38,3 +40,7 @@ services:
         - MONGODB_USERNAME=ckan
         - MONGODB_PASSWORD=ckan
         - MONGODB_DATABASE=ckan
+networks:
+    default:
+        external:
+             name: ldap_ldap

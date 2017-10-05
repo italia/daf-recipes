@@ -12,7 +12,9 @@ services:
       - ./users.ldif:/container/service/slapd/assets/config/bootstrap/ldif/data.ldif
     environment:
       - LDAP_ADMIN_PASSWORD=admin
-      - LDAP_BASE_DN=dc=example,dc=org
+      - LDAP_BASE_DN=dc=daf,dc=test,dc=it
+      - LDAP_REPLICATION_HOSTS=ldap://ldap.daf.test.it
+      - LDAP_DOMAIN=daf.test.it
     networks:
       - ldap
   phpldapadmin:
