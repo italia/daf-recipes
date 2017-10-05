@@ -16,7 +16,7 @@ RUN apt-get -q -y update && apt-get -q -y upgrade && DEBIAN_FRONTEND=noninteract
         libpq-dev \
 	libldap2-dev \
 	libsasl2-dev \
-	libssl-dev \        
+	libssl-dev \
 	git-core \
 	sudo \
 	&& apt-get -q clean
@@ -42,7 +42,7 @@ RUN pip install --upgrade pip
 
 # SetUp ckan Directory
 RUN mkdir -p $CKAN_HOME
-RUN mkdir -p $CKAN_CONFIG 
+RUN mkdir -p $CKAN_CONFIG
 RUN mkdir -p $CKAN_STORAGE_PATH
 
 # Create virtualenv
@@ -50,19 +50,19 @@ RUN virtualenv --no-site-packages $CKAN_HOME
 
 # Install ckan
 RUN pip install setuptools==20.4
-RUN mkdir -p $CKAN_HOME/src/ckan/ 
-ADD ./ckan/ $CKAN_HOME/src/ckan/ 
-RUN . /usr/lib/ckan/default/bin/activate 
-RUN pip install -e $CKAN_HOME/src/ckan/ 
-RUN pip install -r $CKAN_HOME/src/ckan/requirements.txt 
+RUN mkdir -p $CKAN_HOME/src/ckan/
+ADD ./ckan/ $CKAN_HOME/src/ckan/
+RUN . /usr/lib/ckan/default/bin/activate
+RUN pip install -e $CKAN_HOME/src/ckan/
+RUN pip install -r $CKAN_HOME/src/ckan/requirements.txt
 
-# TMP-BUGFIX https://github.com/ckan/ckan/issues/3594 
+# TMP-BUGFIX https://github.com/ckan/ckan/issues/3594
 RUN pip install --upgrade urllib3
-RUN . /usr/lib/ckan/default/bin/activate 
+RUN . /usr/lib/ckan/default/bin/activate
 
 # Add ckan.ini configuration file
-ADD ./ckan.ini $CKAN_CONFIG
-RUN chmod 777 $CKAN_CONFIG/ckan.ini
+#ADD ./ckan.ini $CKAN_CONFIG
+#RUN chmod 777 $CKAN_CONFIG/ckan.ini
 
 # Link to who.ini
 RUN ln -s $CKAN_HOME/src/ckan/ckan/config/who.ini $CKAN_CONFIG/who.ini
@@ -70,23 +70,23 @@ RUN ln -s $CKAN_HOME/src/ckan/ckan/config/who.ini $CKAN_CONFIG/who.ini
 # Install ckanext-harvest
 RUN mkdir $CKAN_HOME/src/ckanext-harvest/
 ADD ./ckanext-harvest/ $CKAN_HOME/src/ckanext-harvest/
-RUN . /usr/lib/ckan/default/bin/activate  
-RUN pip install -e $CKAN_HOME/src/ckanext-harvest/ 
-RUN pip install -r $CKAN_HOME/src/ckanext-harvest/pip-requirements.txt 
-RUN pip install -r $CKAN_HOME/src/ckanext-harvest/dev-requirements.txt 
+RUN . /usr/lib/ckan/default/bin/activate
+RUN pip install -e $CKAN_HOME/src/ckanext-harvest/
+RUN pip install -r $CKAN_HOME/src/ckanext-harvest/pip-requirements.txt
+RUN pip install -r $CKAN_HOME/src/ckanext-harvest/dev-requirements.txt
 
 # Install ckanext-dcat
 RUN mkdir $CKAN_HOME/src/ckanext-dcat/
 ADD ./ckanext-dcat/ $CKAN_HOME/src/ckanext-dcat/
-RUN . /usr/lib/ckan/default/bin/activate 
-RUN pip install -e $CKAN_HOME/src/ckanext-dcat/ 
+RUN . /usr/lib/ckan/default/bin/activate
+RUN pip install -e $CKAN_HOME/src/ckanext-dcat/
 RUN pip install -r $CKAN_HOME/src/ckanext-dcat/requirements.txt
 
 # Install ckanext-dcatapit
 RUN mkdir $CKAN_HOME/src/ckanext-dcatapit/
 ADD ./ckanext-dcatapit/ $CKAN_HOME/src/ckanext-dcatapit/
-RUN . /usr/lib/ckan/default/bin/activate 
-RUN pip install -e $CKAN_HOME/src/ckanext-dcatapit/ 
+RUN . /usr/lib/ckan/default/bin/activate
+RUN pip install -e $CKAN_HOME/src/ckanext-dcatapit/
 
 # TEST Install ckanext-ldap
 RUN mkdir $CKAN_HOME/src/ckanext-ldap/
@@ -102,7 +102,7 @@ RUN . /usr/lib/ckan/default/bin/activate
 
 CMD ["paster","serve","/etc/ckan/default/ckan.ini"]
 
-# SetUp EntryPoint 
+# SetUp EntryPoint
 COPY ./ckan-entrypoint.sh /
 RUN chmod +x /ckan-entrypoint.sh
 ENTRYPOINT ["/ckan-entrypoint.sh"]
@@ -111,7 +111,7 @@ ENTRYPOINT ["/ckan-entrypoint.sh"]
 ADD ./ckan-init.sh /
 RUN chmod +x /ckan-init.sh
 
-# Volumes 
+# Volumes
 VOLUME ["/etc/ckan/default"]
 VOLUME ["/var/lib/ckan"]
 EXPOSE 5000

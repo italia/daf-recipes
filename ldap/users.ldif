@@ -1,4 +1,4 @@
-# LDIF Export for dc=example,dc=org
+# LDIF Export for dc=daf,dc=test,dc=it
 # Server: ldap (ldap)
 # Search Scope: sub
 # Search Filter: (objectClass=*)
@@ -9,32 +9,32 @@
 
 version: 1
 
-# Entry 1: dc=example,dc=org
-#dn: dc=example,dc=org
+# Entry 1: dc=daf,dc=test,dc=it
+#dn: dc=daf,dc=test,dc=it
 #dc: example
 #o: Example Inc.
 #objectclass: top
 #objectclass: dcObject
 #objectclass: organization
 
-# Entry 2: cn=admin,dc=example,dc=org
-#dn: cn=admin,dc=example,dc=org
+# Entry 2: cn=admin,dc=daf,dc=test,dc=it
+#dn: cn=admin,dc=daf,dc=test,dc=it
 #cn: admin
 #description: LDAP administrator
 #objectclass: simpleSecurityObject
 #objectclass: organizationalRole
 #userpassword: {SSHA}FEe4QdOUurh8FbWQR9cauY/KkttcOH8Z
 
-# Entry 3: cn=jupyterhub,dc=example,dc=org
-dn: cn=jupyterhub,dc=example,dc=org
+# Entry 3: cn=jupyterhub,dc=daf,dc=test,dc=it
+dn: cn=jupyterhub,dc=daf,dc=test,dc=it
 changetype: add
 cn: jupyterhub
 gidnumber: 500
 objectclass: posixGroup
 objectclass: top
 
-# Entry 4: cn=alice,cn=jupyterhub,dc=example,dc=org
-dn: cn=alice,cn=jupyterhub,dc=example,dc=org
+# Entry 4: cn=alice,cn=jupyterhub,dc=daf,dc=test,dc=it
+dn: cn=alice,cn=jupyterhub,dc=daf,dc=test,dc=it
 changetype: add
 cn: alice
 gidnumber: 500
@@ -46,4 +46,51 @@ objectclass: top
 sn: alice
 uid: alice
 uidnumber: 1000
+userpassword: {MD5}X03MO1qnZdYdgyfeuILPmQ==
+
+# Entry 5: cn:accounts,dc=daf,dc=test,dc=it 
+dn: cn=accounts,dc=daf,dc=test,dc=it
+changetype: add
+cn: accounts
+gidnumber: 501
+objectclass: posixGroup
+objectclass: top
+
+#Entry 6: cn:users,cn:accounts,dc=daf,dc=test,dc=it 
+dn: cn=users,cn=accounts,dc=daf,dc=test,dc=it
+changetype: add
+cn: users
+gidnumber: 502
+objectclass: posixGroup
+objectclass: top
+
+# Entry 7: cn:admin1,cn:users,cn:accounts,dc:daf,dc:test,dc:it
+dn: cn=admin,cn=users,cn=accounts,dc=daf,dc=test,dc=it
+changetype: add
+uid:admin1
+gidnumber: 500
+givenname: admin1
+homedirectory: /home/users/admin1
+mail: admin1@daf.test.it
+objectclass: inetOrgPerson
+objectclass: posixAccount
+objectClass: person
+objectclass: top
+sn: admin1
+uidnumber: 1001
+userpassword: {MD5}X03MO1qnZdYdgyfeuILPmQ==
+
+# Entry 8: cn=bob,cn=users,cn=accounts,dc=daf,dc=test,dc=it
+dn: cn=bob,cn=users,cn=accounts,dc=daf,dc=test,dc=it
+changetype: add
+cn:  bob
+gidnumber: 502
+homedirectory: /home/users/bob
+mail: bob@daf.test.it
+objectclass: inetOrgPerson
+objectclass: posixAccount
+objectclass: top
+sn: bob
+uid: bob
+uidnumber: 1002
 userpassword: {MD5}X03MO1qnZdYdgyfeuILPmQ==

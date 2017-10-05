@@ -57,4 +57,4 @@ c.LDAPAuthenticator.server_address = 'ldap'
 c.LDAPAuthenticator.use_ssl = False
 c.PAMAuthenticator.open_sessions = False
 c.LDAPAuthenticator.server_port = 389
-c.LDAPAuthenticator.bind_dn_template = 'cn={username},cn=jupyterhub,dc=example,dc=org'
+c.LDAPAuthenticator.bind_dn_template = 'cn={username},cn=jupyterhub,dc=daf,dc=test,dc=it'
