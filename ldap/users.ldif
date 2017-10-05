@@ -64,17 +64,33 @@ gidnumber: 502
 objectclass: posixGroup
 objectclass: top
 
-# Entry 4: cn:admin1,cn:users,cn:accounts,dc:daf,dc:test,dc:it
+# Entry 7: cn:admin1,cn:users,cn:accounts,dc:daf,dc:test,dc:it
 dn: cn=admin,cn=users,cn=accounts,dc=daf,dc=test,dc=it
 changetype: add
 uid:admin1
 gidnumber: 500
 givenname: admin1
 homedirectory: /home/users/admin1
+mail: admin1@daf.test.it
 objectclass: inetOrgPerson
 objectclass: posixAccount
 objectClass: person
 objectclass: top
 sn: admin1
 uidnumber: 1001
+userpassword: {MD5}X03MO1qnZdYdgyfeuILPmQ==
+
+# Entry 8: cn=bob,cn=users,cn=accounts,dc=daf,dc=test,dc=it
+dn: cn=bob,cn=users,cn=accounts,dc=daf,dc=test,dc=it
+changetype: add
+cn:  bob
+gidnumber: 502
+homedirectory: /home/users/bob
+mail: bob@daf.test.it
+objectclass: inetOrgPerson
+objectclass: posixAccount
+objectclass: top
+sn: bob
+uid: bob
+uidnumber: 1002
 userpassword: {MD5}X03MO1qnZdYdgyfeuILPmQ==
