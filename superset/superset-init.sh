@@ -7,7 +7,7 @@ set -e
 
 # Create an admin user
 #fabmanager create-admin --app superset $@
-fabmanager create-admin --app superset --username admin --firstname admin --lastname admin --email admin@fab.it --password password
+# fabmanager create-admin --app superset --username admin --firstname admin --lastname admin --email admin@fab.it --password password
 
 # Initialize the database
 superset db upgrade

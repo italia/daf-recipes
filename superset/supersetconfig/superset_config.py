@@ -58,7 +58,7 @@ AUTH_ROLE_ADMIN = 'Admin'
 # AUTH_ROLE_PUBLIC = 'Public'
 
 # Will allow user self registration
-AUTH_USER_REGISTRATION = True
+# AUTH_USER_REGISTRATION = True
 
 # The default user self registration role
 # AUTH_USER_REGISTRATION_ROLE = "Public"
@@ -70,17 +70,17 @@ AUTH_USER_REGISTRATION_ROLE = "Admin"
 # When using Local DB AUTH uncomment following parameter and comment "AUTH_LDAP"
 #AUTH_TYPE = AUTH_DB
 
-# When using LDAP Auth, setup the ldap server 
-AUTH_TYPE = AUTH_LDAP 
-AUTH_LDAP_SERVER = "ldaps://server:636"
-AUTH_LDAP_SEARCH = "cn=users,cn=accounts,dc=test,dc=example,dc=it"
+# When using LDAP Auth, setup the ldap server
+AUTH_TYPE = AUTH_LDAP
+AUTH_LDAP_SERVER = "ldap://freeipa.daf.test.it:389"
+AUTH_LDAP_SEARCH = "cn=users,cn=accounts,dc=daf,dc=test,dc=it"
 AUTH_LDAP_UID_FIELD = "uid"
 AUTH_LDAP_FIRSTNAME_FIELD = "givenName"
 AUTH_LDAP_LASTNAME_FIELD = "sn"
 AUTH_LDAP_EMAIL_FIELD = "mail"
-AUTH_LDAP_BIND_USER = "uid=admin,cn=users,cn=accounts,dc=test,dc=example,dc=it"
-AUTH_LDAP_BIND_PASSWORD = "password"
-AUTH_LDAP_ALLOW_SELF_SIGNED = True 
+AUTH_LDAP_BIND_USER = "uid=admin,cn=users,cn=accounts,dc=daf,dc=test,dc=it"
+AUTH_LDAP_BIND_PASSWORD = "aiyaiPh8"
+AUTH_LDAP_ALLOW_SELF_SIGNED = True
 
 # ---------------------------------------------------
 # Roles config

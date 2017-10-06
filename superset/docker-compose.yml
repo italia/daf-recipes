@@ -3,7 +3,7 @@ superset:
   image: supersetd
   restart: always
   extra_hosts:
-    idm.daf.gov.it: 192.168.0.29
+    freeipa.daf.test.it: 91.206.129.245
   links:
       - postgressuperset
       - redissuperset
@@ -14,7 +14,7 @@ superset:
   volumes:
       - ./supersetconfig:/etc/superset
 postgressuperset:
-  container_name: postgressuperset 
+  container_name: postgressuperset
   image: postgres:9.6
   restart: always
   ports:
