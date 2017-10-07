@@ -23,3 +23,10 @@ services:
             - 16010:16010
             - 4242:4242
         command: sh run.sh
+    statsd:
+      build: ./statsd
+      depends_on:
+      - hbase-opentsdb
+      ports:
+      - 8125:8125/udp
+      - 8126:8126
