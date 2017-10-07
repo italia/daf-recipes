@@ -13,3 +13,8 @@ By default the instance is connected to the default host network via *bridge*.
 Check that the service is running via `docker-compose ps`.
 
 You can access to the web-ui of the service clicking [here](http://localhost:8890) and log to the conductor admin issuing username and password.
+
+## YASGUI
+
+The `nginx` service comprises an nginx server that serves the YASGUI application.
+The service can be accessed on port `8080`.

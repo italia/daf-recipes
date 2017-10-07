@@ -10,7 +10,16 @@ services:
       - DBA_PASSWORD=changeme
       - SPARQL_UPDATE=true
     volumes:
-      - ./virtuoso_data:/data
+      - ./yasgui_static/:/data
+      - ./yasgui_nginx.conf:/etc/nginx/conf.d/yasgui
+  nginx:
+    image: nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - ./yasgui_static/:/data
+      - ./yasgui_nginx.conf:/yasgui_nginx.conf
+    command: nginx -c /yasgui_nginx.conf
 
 networks:
   default:
