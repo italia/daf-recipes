@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  virtuoso:
+    image: tenforce/virtuoso
+    ports:
+      - "8890:8890"
+      - "1111:1111"
+    environment:
+      - DBA_PASSWORD=changeme
+      - SPARQL_UPDATE=true
+    volumes:
+      - ./virtuoso_data:/data
+
+networks:
+  default:
+    driver: bridge
