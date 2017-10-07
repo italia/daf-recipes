@@ -2,15 +2,16 @@ FROM ubuntu
 
 WORKDIR /opt
 
-RUN apt-get update && apt-get install -y software-properties-common dh-autoreconf gnuplot openssh-server supervisor adduser libfontconfig curl
+RUN apt-get update && apt-get install -y software-properties-common wget dh-autoreconf gnuplot openssh-server supervisor adduser libfontconfig curl
 RUN add-apt-repository ppa:openjdk-r/ppa && apt-get update && apt-get install -y openjdk-8-jdk
 
 RUN mkdir -p /opt/data/hbase /tmp/opentsdb_cache
 
 # Hbase configuration and installation
 #ADD http://www-eu.apache.org/dist/hbase/1.2.6/hbase-1.2.6-bin.tar.gz /opt/
-ADD http://10.93.0.148/hbase-1.2.6-bin.tar.gz /opt/
-RUN tar xzf /opt/hbase-1.2.6-bin.tar.gz && rm /opt/hbase-1.2.6-bin.tar.gz
+#ADD http://10.93.0.148/hbase-1.2.6-bin.tar.gz /opt/
+RUN if [ ! -e hbase-1.2.6-bin.tar.gz ] ; then wget  http://10.93.0.148/hbase-1.2.6-bin.tar.gz ; fi
+RUN tar xzf /opt/hbase-1.2.6-bin.tar.gz
 
 RUN rm /opt/hbase-1.2.6/conf/hbase-site.xml
 ADD hbase-site.xml /opt/hbase-1.2.6/conf/
@@ -18,8 +19,8 @@ RUN echo "export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64" >> /opt/hbase-1.2.
 
 # OpenTSDB configuration and installation
 #ADD https://github.com/OpenTSDB/opentsdb/archive/v2.3.0.tar.gz /opt
-ADD http://10.93.0.148/v2.3.0.tar.gz /opt
-RUN tar -xzf /opt/v2.3.0.tar.gz && rm /opt/v2.3.0.tar.gz
+RUN if [ ! -e v2.3.0.tar.gz ] ; then wget  http://10.93.0.148/v2.3.0.tar.gz ; fi
+RUN tar -xzf /opt/v2.3.0.tar.gz
 
 RUN  cd /opt/opentsdb-2.3.0/ && sh /opt/opentsdb-2.3.0/build.sh
 
