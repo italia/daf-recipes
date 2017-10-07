@@ -10,7 +10,7 @@ services:
       - DBA_PASSWORD=changeme
       - SPARQL_UPDATE=true
     volumes:
-+      - ./virtuoso_data:/data
+      - ./virtuoso_data:/data
   nginx:
     image: nginx
     ports:
