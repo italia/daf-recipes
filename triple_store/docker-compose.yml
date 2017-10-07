@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  virtuoso:
+    image: tenforce/virtuoso
+    ports:
+      - "8890:8890"
+      - "1111:1111"
+    environment:
+      - DBA_PASSWORD=changeme
+      - SPARQL_UPDATE=true
+    volumes:
++      - ./virtuoso_data:/data
+  nginx:
+    image: nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - ./yasgui_static/:/static
+      - ./yasgui_nginx.conf:/yasgui_nginx.conf
+    command: nginx -c /yasgui_nginx.conf
+
+networks:
+  default:
+    driver: bridge
