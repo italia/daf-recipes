@@ -8,8 +8,8 @@ RUN add-apt-repository ppa:openjdk-r/ppa && apt-get update && apt-get install -y
 RUN mkdir -p /opt/data/hbase /tmp/opentsdb_cache
 
 # Hbase configuration and installation
-#ADD http://www-eu.apache.org/dist/hbase/1.2.6/hbase-1.2.6-bin.tar.gz /opt/
-ADD http://10.93.0.148/hbase-1.2.6-bin.tar.gz /opt/
+ADD http://www-eu.apache.org/dist/hbase/1.2.6/hbase-1.2.6-bin.tar.gz /opt/
+#ADD http://10.93.0.148/hbase-1.2.6-bin.tar.gz /opt/
 RUN tar xzf /opt/hbase-1.2.6-bin.tar.gz && rm /opt/hbase-1.2.6-bin.tar.gz
 
 RUN rm /opt/hbase-1.2.6/conf/hbase-site.xml
@@ -17,8 +17,8 @@ ADD hbase-site.xml /opt/hbase-1.2.6/conf/
 RUN echo "export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64" >> /opt/hbase-1.2.6/conf/hbase-env.sh
 
 # OpenTSDB configuration and installation
-#ADD https://github.com/OpenTSDB/opentsdb/archive/v2.3.0.tar.gz /opt
-ADD http://10.93.0.148/v2.3.0.tar.gz /opt
+ADD https://github.com/OpenTSDB/opentsdb/archive/v2.3.0.tar.gz /opt
+#ADD http://10.93.0.148/v2.3.0.tar.gz /opt
 RUN tar -xzf /opt/v2.3.0.tar.gz && rm /opt/v2.3.0.tar.gz
 
 RUN  cd /opt/opentsdb-2.3.0/ && sh /opt/opentsdb-2.3.0/build.sh
