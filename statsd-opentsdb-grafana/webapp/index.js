@@ -10,7 +10,8 @@ var APIkey = "-";
 
 //Generate the image every 5 seconds
 function generateImage(arg) {
-  exec('curl -H "Authorization: Bearer ' + APIkey + '" "http://grafana:3000/render/dashboard-solo/db/sin?refresh=5s&orgId=1&from=1507461685735&to=1507461985735&panelId=1&width=1000&height=500&tz=UTC%2B00%3A00" > snapshot.png', puts);
+  exec('curl -H "Authorization: Bearer ' + APIkey + '" "http://grafana:3000/render/dashboard-solo/db/sin?refresh=5s&orgId=1&from=1507466925238&to=1507467422437&panelId=1&width=1000&height=500&tz=UTC%2B00%3A00" > snapshot.png', puts);
+  //exec('curl -H "Authorization: Bearer ' + APIkey + '" "http://grafana:3000/render/dashboard-solo/db/sin?refresh=5s&orgId=1&from=' + (Math.floor(new Date()) - 300) + '&to=' + (Math.floor(new Date())) + '&panelId=1&width=1000&height=500&tz=UTC%2B00%3A00" > snapshot.png', puts);
 }
 setInterval(generateImage, 5000);
 
