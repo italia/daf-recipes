@@ -30,3 +30,7 @@ services:
         ports:
         - 8125:8125/udp
         - 8126:8126
+    webapp:
+        build: ./webapp
+        ports:
+          - 3001:8080
