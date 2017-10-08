@@ -33,4 +33,4 @@ services:
     webapp:
         build: ./webapp
         ports:
-          - 3001:8080
+          - 3001:3001

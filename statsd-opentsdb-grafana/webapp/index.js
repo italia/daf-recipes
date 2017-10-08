@@ -10,7 +10,7 @@ var APIkey = "-";
 
 //Generate the image every 5 seconds
 function generateImage(arg) {
-  exec('curl -H "Authorization: Bearer ' + APIkey + '" "http://localhost:3000/render/dashboard-solo/db/vecchio?panelId=1&orgId=1&from=1507408937119&to=1507409826503&width=1000&height=500&tz=UTC%2B02%3A00" > snapshot.png', puts);
+  exec('curl -H "Authorization: Bearer ' + APIkey + '" "http://grafana:3000/render/dashboard-solo/db/vecchio?panelId=1&orgId=1&from=1507408937119&to=1507409826503&width=1000&height=500&tz=UTC%2B02%3A00" > snapshot.png', puts);
 }
 setInterval(generateImage, 5000);
 
@@ -18,15 +18,13 @@ setInterval(generateImage, 5000);
 function verify(key) {
   var request = require('sync-request');
 
-  //'eyJrIjoiTG5Jck5JVW5BTVRwMDhJdW85MzZCQmw1NnR1aU02ZDciLCJuIjoibXlrZXkiLCJpZCI6MX0='
-
   var string = 'Bearer ' + APIkey;
 
   var headers = {
     'Authorization': string
   };
 
-  var res = request('GET', 'http://localhost:3000', {
+  var res = request('GET', 'http://grafana:3000', {
   'headers': headers
 });
 
@@ -38,7 +36,6 @@ function verify(key) {
     return false;
   }
 }
-
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -58,7 +55,7 @@ function sendGraph(req, res, next) {
 
   console.log("Graph requested by token " + data.apikey + ".");
   if (verify(APIkey)) {
-    res.sendFile('/home/nicola/Repos/daf-recipes/statsd-opentsdb-grafana/webapp/index.html');
+    res.sendFile('/usr/src/app/index.html');
   } else {
     res.send("Unauthorized");
   }
@@ -69,7 +66,7 @@ function sendGraph(req, res, next) {
 app.get('/snapshot.png', sendSnapshot);
 function sendSnapshot(req, res) {
   if (verify(APIkey)) {
-    res.sendFile('/home/nicola/Repos/daf-recipes/statsd-opentsdb-grafana/webapp/snapshot.png'); // Send the file data to the browser.
+    res.sendFile('/usr/src/app/snapshot.png'); // Send the file data to the browser.
   } else {
     res.send("Unauthorized");
   }
