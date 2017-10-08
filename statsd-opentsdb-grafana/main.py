@@ -7,7 +7,7 @@ from math import sin
 
 def main():
 
-    UDP_IP = "10.93.0.146" #l' idirizzo ip dove mandare i dati
+    UDP_IP = "localhost"
     UDP_PORT = 8125
 
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
