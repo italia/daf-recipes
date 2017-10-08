@@ -1,15 +1,31 @@
-# Progetto DAF
+# Sugos Progetto DAF - OpenTSDB-Grafana
 
-##### Team Sugos
+### Descrizione
+Sugos OpenTSDB-Grafana è una docker-compose sviluppata dal team *Sugos* con
+lo scopo di far risparmiare allo sviluppatore tempo utile che andrebbe sprecato
+per l' installazione di tutte le componenti necessarie.
+Attraverso la tecnologia docker-compose è possibile eseguire più framework
+utilizzando un unico comando.
 
-### Introduzione
-Dopo aver avviato la tecnologia di Docker-compose con il comando:
+---
+
+### Requisiti di sistema
+- docker
+
+---
+
+### Avvio
+Per lanciare la docker-compose prima di tutto assicuratevi di avere avviato
+correttamente  il servizio *docker* e successivamente eseguite all' interno
+della directory contente il file docker-compose.yml il seguente comando:
 ```
-sudo docker-compose up
+docker-compose up
 ```
-ora tutti i containers sono pronti all'uso.
+Questo comando permette di automatizzare l'esecuzione dei vari servizi.
 
-### Componenti operativi del docker compose (containers)
+---
+
+### Componenti operativi utili per la docker compose
 1. Script Python
 2. Statsd
 3. OpenTSDB
@@ -17,16 +33,16 @@ ora tutti i containers sono pronti all'uso.
 5. WebApp
 
 #### 1. Script Python
-È uno script che manda dati allo Statsd.
+È uno script che manda dati allo Statsd. Quello fatto di esempio è un' semplice script python che spedisce punti ogni 5 secondi, per poi formare una sinusoide.
 
 #### 2. Statsd
-Sta in ascolto sulla porta 8125 per ricevere i dati da inviare al servizio OpenTSDB via protocollo UDP.
+Sta in ascolto sulla porta 8125 per ricevere i dati da inviare al servizio OpenTSDB via protocollo UDP. Riceve i dati dallo script python.
 
 #### 3. OpenTSDB
-Sta in ascolto sulla porta 4242 per ricevere i dati da inviare al servizio Grafana tramite il protocollo TCP.
+È un servizio di accumulo informazioni in grado di gestire grandi quantità di dati. Per estrarre i dati da esso, basterà accedervi sulla porta 4242.
 
 #### 4. Grafana
-All'avvio del container verrà caricato il file di configurazione edit tramite uno script bash, e in successione ascoltando sulla porta 3000 verranno ricevuti i dati della tabella.
+Grafana è la parte principale del progetto e permette di gestire varie tipologie di grafici. Grafana è già stato preconfigurato per estrarre i dati da OpenTSDB sulla porta 4242.
 
 #### 5. WebApp
 Prima di poter usufruire della WebApp si eseguiranno i seguenti passaggi:
@@ -35,11 +51,10 @@ Prima di poter usufruire della WebApp si eseguiranno i seguenti passaggi:
 * lo script manderà a sua volta la chiave alla WebApp;
 * la WebApp utilizzerà la chiave per l'autenticazione dell'identità dell'utente che cercherà di accedere ai dati interni e se il token sarà giusto si potrà scaricare dell'immagine del grafico di grafana.
 
-A questo punto la WebApp sarà pienamente funzionante.
 
 ### Partecipanti del gruppo:
-* Nicola Salsotto
-* Simone Cirino
-* Giovanni Rizzi
-* Fabrizio Sandri
-* Antonio Radessich
+* Nicola Salsotto | https://github.com/NicoVarg99
+* Simone Cirino | https://github.com/Cirino99
+* Giovanni Rizzi | https://github.com/giovannirizzi
+* Fabrizio Sandri | https://github.com/FabrizioSandri/DockerCompose
+* Antonio Radessich | https://github.com/AntoRade
