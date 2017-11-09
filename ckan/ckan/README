@@ -31,24 +31,24 @@ Ckan + plugin dcat + dcat-ap-it Docker images
 
 2. Run Ckan docker container with docker compose:
 	
-    a. Execute follow command to create ckan container:
-	```
+	a. Execute follow command to create ckan container:
+	```bash
 	docker-compose up -d
 	```
-		
+	
 	b. Load "ckan vocabulary" in ckan container:
-	```
+	```bash
 	docker exec -it ckandcat /bin/bash -c ./ckan-vocabulary.sh
 	```
 
 3. Access ckan server with browser at this link:
-    ```
+    ```bash
     http://localhost:5000
     ```
 
     You can use as ckan "`sysadmin`" account following credential: 
     
-    ```
+    ```properties
     User: ckanadmin
     Password: ckanpassword
     ```
